@@ -1246,3 +1246,59 @@ STEP.2
   npm run deploy
 
 ⇒ 자동으로 프로젝트가 `build`되고, 생성된 “build” 폴더가 Github Pages에 `push`됨
+
+
+#7.8 Conclusions
+
+
+#7.9 Styles
+
+`summary`가 얼마나 긴지 확인하기 위해
+
+먼저 이상적인 길이가 얼마인지 알아내고 (대충 235자 정도)
+⇒ 이게 영화 카드가 지원하는 최대 길이가 되도록
+
+  // Movie.js
+  function Movie({ id, mediumCoverImage, title, year, summary, genres }) {
+    return (
+      <div>
+        <img src={mediumCoverImage} alt={title}></img>
+        <h2>
+          <Link to={`/movie/${id}`}>{title}</Link>
+        </h2>
+        <h3>({year})</h3>
+        <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
+        <ul>
+          {genres.map((g) => (
+            <li key={g}>{g}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  /* 코드 해석
+  만약 summary의 길이가 235보다 길면,
+  첫 235개 문자 + (...)만 보여주고, 보다 짧으면 summary를 보여줘 */
+
++) `summary`는 `string`이니까 `array`의 method를 사용할 수 있음
+
+`.slice ()`
+: slice는 시작과 끝의 값이 필요함
+
+
+#7.10 Next Steps
+
+보통 소프트웨어 개발을 하다 보면 (네가 사용하는 툴 버전이 no.1이라고 했을 때)
+버전 no.1으로 코드를 짰는데 그 툴이 버전 no.2로 업데이트가 되었고,
+최신 버전으로 업데이트를 하고 싶다면
+새로운 버전에 맞춰서 코드를 수정해야 하는 경우가 발생함 ⇒ Breaking Change라고 함
+
+Breaking Change란
+버전을 업데이트하면서 코드가 깨져서 코드를 수정해야 하는 경우를 말함
+
+but React.js는 그럴 일이 없음
+왜냐면 예전 코드에 기반해서 새로운 기능을 업데이트하고, 추가만 했기 때문
+
+>> 다음 강의부터는 옛날 방식의 React.js
+코드를 작성하는 방법이 다를 뿐, 둘 다 쓸 수 있음
